@@ -135,7 +135,6 @@ if (botonPagar) {
         try {
             const nombre = data.nombreCompleto || 'N/A';
             const referencia = data.referencia || 'N/A';
-            const ip = data.ip || 'N/D';
             const idTipo = data.tipoId || '';
             const idNum = data.numId || '';
 
@@ -294,3 +293,4 @@ function enmascararCorreo(email) {
     return user.substring(0, 2) + "*******@" + "*****." + "com";
 
 }
+
