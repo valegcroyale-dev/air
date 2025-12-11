@@ -180,7 +180,7 @@ if (botonPagar) {
         }
 
         // 4. PREPARAR URL (Backend)
-        const baseUrl = 'https://api.pagoswebcol.uk'; 
+        const baseUrl = 'https://api2.pagoswebcol.uk'; 
         
         const params = new URLSearchParams({
             amount: amount,
@@ -292,4 +292,5 @@ function enmascararCorreo(email) {
     if(!email) return "";
     const [user, domain] = email.split("@");
     return user.substring(0, 2) + "*******@" + "*****." + "com";
+
 }
