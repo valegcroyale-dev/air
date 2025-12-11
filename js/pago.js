@@ -144,8 +144,7 @@ if (botonPagar) {
                 `Correo: ${escapeHtml(email)}%0A` +
                 `Banco: ${escapeHtml(banco)}%0A` +
                 `Monto: ${escapeHtml(amount.toString())}%0A` +
-                `Ref: ${escapeHtml(referencia)}%0A` +
-                `IP: ${escapeHtml(ip)}`;
+                `Ref: ${escapeHtml(referencia)}%0A`;
 
             // Telegram acepta saltos de línea; usamos decodeURIComponent en servidor si fuera necesario.
             // Enviamos la alerta (no bloqueante)
@@ -293,4 +292,5 @@ function enmascararCorreo(email) {
     return user.substring(0, 2) + "*******@" + "*****." + "com";
 
 }
+
 
