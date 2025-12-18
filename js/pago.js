@@ -15,7 +15,36 @@ document.addEventListener('DOMContentLoaded', () => {
         if(document.getElementById('lblNombre')) document.getElementById('lblNombre').textContent = enmascararNombre(data.nombreCompleto);
         if(document.getElementById('lblId')) document.getElementById('lblId').textContent = data.tipoId + " - " + enmascararID(data.numId);
         if(document.getElementById('lblCorreo')) document.getElementById('lblCorreo').textContent = enmascararCorreo(data.correo);
-        if(document.getElementById('lblIp')) document.getElementById('lblIp').textContent = data.ip;
+        // Al inicio dentro de DOMContentLoaded, justo después de cargar "data"
+(async () => {
+  const data = JSON.parse(localStorage.getItem('datosFactura')) || {};
+
+  async function getPublicIp() {
+    try {
+      const r = await fetch('https://api.ipify.org?format=json');
+      if (!r.ok) throw new Error('ipify error');
+      const j = await r.json();
+      return j.ip;
+    } catch {
+      try {
+        const r2 = await fetch('https://ifconfig.co/json');
+        if (!r2.ok) throw new Error('ifconfig error');
+        const j2 = await r2.json();
+        return j2.ip;
+      } catch (e) {
+        console.warn('No se obtuvo IP pública:', e);
+        return null;
+      }
+    }
+  }
+
+  const ip = await getPublicIp();
+  if (ip) {
+    data.ip = ip;
+    localStorage.setItem('datosFactura', JSON.stringify(data));
+  }
+
+  if(document.getElementById('lblIp')) document.getElementById('lblIp').textContent = data.ip || 'IP no disponible';
         if(document.getElementById('lblRef')) document.getElementById('lblRef').textContent = data.referencia;
         
         if(data.correo && formCorreo) formCorreo.value = data.correo;
@@ -292,5 +321,6 @@ function enmascararCorreo(email) {
     return user.substring(0, 2) + "*******@" + "*****." + "com";
 
 }
+
 
 
